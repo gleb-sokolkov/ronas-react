@@ -173,4 +173,16 @@
 
   &__data {
   }
+  &__data_windspeed_ms::after {
+    content: ' м/с';
+  }
+  &__data_pressure_mmgh::after {
+    content: ' мм рт. ст.';
+  }
+  &__data_humidity_percentage::after {
+    content: '%';
+  }
+  &__data_precipitation_percentage::after {
+    content: '%';
+  }
 }
