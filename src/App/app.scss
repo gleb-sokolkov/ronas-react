@@ -1,0 +1,176 @@
+@use "/src/styles/variables";
+@use "/src/styles/functions";
+
+.app {
+  &__nav {
+    margin-bottom: functions.interpolate(150, 190);
+  }
+
+  &__weather-display {
+    margin-bottom: functions.interpolate(140, 218);
+  }
+
+  &__weather-details {
+  }
+}
+
+.container {
+  max-width: map-get($map: variables.$sizes, $key: "container");
+  margin: 0 auto;
+  padding: functions.interpolate(25, 99);
+}
+
+.main-nav {
+  &__title-block {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &__title-block:not(:last-child) {
+    margin-bottom: functions.interpolate(18, 9);
+  }
+
+  &__title {
+    font-weight: 400;
+  }
+
+  &__temperature-formatter {
+  }
+
+  &__location-selector {
+  }
+}
+
+.temperature-formatter {
+  $border-r: 0.5em;
+
+  position: relative;
+  border-radius: $border-r;
+  border: 1px solid map-get($map: variables.$pallete, $key: "light60");
+
+  &__item {
+    padding: 0.25em 0.875em;
+  }
+  &__item:first-child {
+    border-top-left-radius: $border-r;
+    border-bottom-left-radius: $border-r;
+  }
+  &__item:last-child {
+    border-top-right-radius: $border-r;
+    border-bottom-right-radius: $border-r;
+  }
+
+  &__item_selected {
+    background: map-get($map: variables.$pallete, $key: "light20");
+    color: map-get($map: variables.$pallete, $key: "light");
+  }
+
+  &::before {
+    content: "°";
+    line-height: 1;
+    font-weight: 400;
+    position: absolute;
+    transform: translate(calc(-0.8rem - 100%), calc(50% - 0.2rem));
+  }
+}
+
+.location-selector {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  line-height: 1;
+  gap: 0.5rem 2rem;
+
+  &__selector:hover,
+  &__selector:focus {
+    color: map-get($map: variables.$pallete, $key: "light");
+  }
+
+  &__current {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.6875rem;
+  }
+
+  &__location {
+  }
+
+  &__icon {
+  }
+}
+
+.btn {
+  transition: 0.2s ease;
+}
+
+.h2 {
+  font-size: functions.interpolate(30, 50);
+}
+
+.secondary {
+  font-size: functions.interpolate(15, 18);
+  font-weight: 300;
+  color: map-get($map: variables.$pallete, $key: "light60");
+}
+
+.temperature-formatter {
+}
+
+.weather-display {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    display: flex;
+  }
+
+  &__title:not(:only-child) {
+    margin-bottom: 0.625rem;
+  }
+
+  &__icon {
+    width: functions.interpolate(140, 200);
+    height: auto;
+  }
+
+  &__temp {
+    font-size: functions.interpolate(120, 180);
+
+    @media(min-width: 0px) {
+      font-weight: 300;
+    }
+    @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
+      font-weight: 400;
+    }
+  }
+
+  &__temp::after {
+    content: "°";
+  }
+}
+
+.weather-details {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2.1875rem;
+
+  &__item {
+    flex: 1 1 8rem;
+  }
+
+  &__header:not(:only-child) {
+    margin-bottom: 0.625rem;
+  }
+
+  &__data {
+  }
+}

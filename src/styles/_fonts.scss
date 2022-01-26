@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,900&display=swap");
+
+@font-face {
+  font-family: 'Lato';
+  src: 
+    url('../fonts/Lato/latoregular.woff2') format('woff2'), 
+    url('../fonts/Lato/latoregular.woff') format('woff'), 
+    url('../fonts/Lato/latoregular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: 
+    url('../fonts/Lato/latolight.woff2') format('woff2'), 
+    url('../fonts/Lato/latolight.woff') format('woff'), 
+    url('../fonts/Lato/latolight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: 
+    url('../fonts/Lato/latothin.woff2') format('woff2'), 
+    url('../fonts/Lato/latothin.woff') format('woff'), 
+    url('../fonts/Lato/latothin.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}

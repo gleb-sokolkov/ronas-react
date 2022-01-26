@@ -1,0 +1,6 @@
+@function interpolate($min-fs: 15, $max-fs: 18, $min-sw: 375, $max-sw: 1366) {
+  @return calc(
+      ((clamp(#{$min-sw} * 1px, 100vw, #{$max-sw} * 1px) - #{$min-sw} * 1px) / (#{$max-sw} - #{$min-sw})) *
+          (#{$max-fs} - #{$min-fs}) + #{$min-fs} * 1px
+  );
+}
