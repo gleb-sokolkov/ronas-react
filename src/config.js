@@ -1,6 +1,3 @@
 export const config = {
-  units: {
-    celcious: 'metric',
-    fahrenheit: 'imperial',
-  }
+  units: ['metric', 'imperial', 'standard'],
 };

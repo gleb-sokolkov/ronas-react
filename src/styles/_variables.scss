@@ -1,9 +1,14 @@
 $pallete: (
-  "sunny": hsl(215, 81%, 61%), 
-  "rainy": hsl(215, 34%, 59%),
+  "default": hsl(215, 81%, 61%), 
+  "clear-sky": hsl(215, 81%, 61%), 
+  "few-clouds": hsl(215, 57%, 60%), 
+  "scattered-clouds": hsl(215, 46%, 60%), 
+  "rain": hsl(215, 34%, 59%),
+  "thunderstorm": hsl(215, 34%, 55%),
   "light": hsl(0, 0%, 100%),
   "light60": hsla(0, 0%, 100%, 0.6),
   "light20": hsla(0, 0%, 100%, 0.2),
+  "light10": hsla(0, 0%, 100%, 0.1),
 );
 
 $sizes: (

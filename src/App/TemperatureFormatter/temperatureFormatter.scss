@@ -1,0 +1,30 @@
+@use "/src/styles/variables";
+@use "/src/styles/functions";
+
+.temperature-formatter {
+  $border-r: 0.5em;
+  $border-w: 2px;
+  $border-item: calc(#{$border-r} - #{$border-w});
+
+  border-radius: $border-r;
+  border: $border-w solid map-get($map: variables.$pallete, $key: "light60");
+  display: flex;
+
+  &__item {
+    padding: 0.25em 0.875em;
+    flex: 1 1 auto;
+  }
+  &__item:first-child {
+    border-top-left-radius: $border-item;
+    border-bottom-left-radius: $border-item;
+  }
+  &__item:last-child {
+    border-top-right-radius: $border-item;
+    border-bottom-right-radius: $border-item;
+  }
+
+  &__item_selected {
+    background: map-get($map: variables.$pallete, $key: "light20");
+    color: map-get($map: variables.$pallete, $key: "light");
+  }
+}

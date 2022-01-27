@@ -2,14 +2,34 @@
 @use "/src/styles/functions";
 
 .app {
+  width: 100%;
+  min-height: 100vh;
+  background: map-get($map: variables.$pallete, $key: "default");
+
+  &_theme_clear-sky {
+    background: map-get($map: variables.$pallete, $key: "clear-sky");
+  }
+  &_theme_few-clouds {
+    background: map-get($map: variables.$pallete, $key: "few-clouds");
+  }
+  &_theme_scattered-clouds {
+    background: map-get($map: variables.$pallete, $key: "scattered-clouds");
+  }
+  &_theme_rain {
+    background: map-get($map: variables.$pallete, $key: "rain");
+  }
+  &_theme_thunderstorm {
+    background: map-get($map: variables.$pallete, $key: "thunderstorm");
+  }
+
   &__nav {
     margin-bottom: functions.interpolate(150, 190);
   }
-
+  
   &__weather-display {
     margin-bottom: functions.interpolate(140, 218);
   }
-
+  
   &__weather-details {
   }
 }
@@ -23,9 +43,10 @@
 .main-nav {
   &__title-block {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row wrap-reverse;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 1.5rem;
   }
 
   &__title-block:not(:last-child) {
@@ -37,42 +58,31 @@
   }
 
   &__temperature-formatter {
-  }
+    position: relative;
 
-  &__location-selector {
+    @media(min-width: 0px) {
+      flex: 1 1 auto;
+    }
+    @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
+      flex: 0 0 auto;
+    }
   }
-}
-
-.temperature-formatter {
-  $border-r: 0.5em;
-
-  position: relative;
-  border-radius: $border-r;
-  border: 1px solid map-get($map: variables.$pallete, $key: "light60");
-
-  &__item {
-    padding: 0.25em 0.875em;
-  }
-  &__item:first-child {
-    border-top-left-radius: $border-r;
-    border-bottom-left-radius: $border-r;
-  }
-  &__item:last-child {
-    border-top-right-radius: $border-r;
-    border-bottom-right-radius: $border-r;
-  }
-
-  &__item_selected {
-    background: map-get($map: variables.$pallete, $key: "light20");
-    color: map-get($map: variables.$pallete, $key: "light");
-  }
-
-  &::before {
+  &__temperature-formatter::before {
     content: "°";
     line-height: 1;
     font-weight: 400;
     position: absolute;
     transform: translate(calc(-0.8rem - 100%), calc(50% - 0.2rem));
+
+    @media(min-width: 0px) {
+      display: none;
+    }
+    @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
+      display: block;
+    }
+  }
+
+  &__location-selector {
   }
 }
 
@@ -83,11 +93,6 @@
   align-items: flex-start;
   line-height: 1;
   gap: 0.5rem 2rem;
-
-  &__selector:hover,
-  &__selector:focus {
-    color: map-get($map: variables.$pallete, $key: "light");
-  }
 
   &__current {
     display: flex;
@@ -105,7 +110,17 @@
 }
 
 .btn {
+  border-radius: 0.2em;
+  padding: 0.3em 0.5em;
   transition: 0.2s ease;
+  
+  &:hover, &:focus {
+    background: map-get($map: variables.$pallete, $key: "light10");
+  }
+  
+  &:active {
+    color: map-get($map: variables.$pallete, $key: "light");
+  }
 }
 
 .h2 {
@@ -126,9 +141,14 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-
+  padding: 0 0.5rem;
+  
   &__title {
     display: flex;
+    flex-flow: row wrap-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   &__title:not(:only-child) {
@@ -151,8 +171,19 @@
     }
   }
 
-  &__temp::after {
-    content: "°";
+  &__temp_unit_celsius::after, &__temp_unit_fahrenheit::after, &__temp_unit_kelvin::after {
+    color: map-get($map: variables.$pallete, $key: 'light60');
+    font-size: 0.5em;
+  } 
+
+  &__temp_unit_celsius::after {
+    content: " °C";
+  }
+  &__temp_unit_fahrenheit::after {
+    content: " °F";
+  }
+  &__temp_unit_kelvin::after {
+    content: " °K";
   }
 }
 
@@ -173,16 +204,22 @@
 
   &__data {
   }
-  &__data_windspeed_ms::after {
+  &__data_windspeed_m\/s::after {
     content: ' м/с';
+  }
+  &__data_windspeed_mph::after {
+    content: ' миля/ч';
+  }
+  &__data_pressure_hPa::after {
+    content: ' гПа';
   }
   &__data_pressure_mmgh::after {
     content: ' мм рт. ст.';
   }
-  &__data_humidity_percentage::after {
+  &__data_humidity_\%::after {
     content: '%';
   }
-  &__data_precipitation_percentage::after {
-    content: '%';
+  &__data_precipitation_mm::after {
+    content: ' мм';
   }
 }

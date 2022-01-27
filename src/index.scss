@@ -6,7 +6,6 @@
 body {
   margin: 0;
   font-family: 'Lato', sans-serif;
-  background: map-get($map: variables.$pallete, $key: "sunny");
   color: map-get($map: variables.$pallete, $key: "light");
   font-size: functions.interpolate(18, 25);
   font-weight: 400;
