@@ -3,8 +3,9 @@ import { config } from "config";
 import './app.scss';
 import { mapObject } from "utils/utils";
 import { xml2js } from "xml-js";
-import { TemperatureFormatter } from './TemperatureFormatter/TemperatureFormatter';
+import { Nav } from "./Nav/Nav";
 import { WeatherIcon } from './WeatherIcon/WeatherIcon';
+import { Closable } from 'App/Closable/Closable';
 
 class App extends Component {
   constructor() {
@@ -17,11 +18,14 @@ class App extends Component {
         appid: process.env.REACT_APP_WEATHER_KEY,
         units: config.units[0],
       },
+      firstVisit: true,
     };
 
     this.setWeatherByCurrentLocation = this.setWeatherByCurrentLocation.bind(this);
+    this.setWeatherByCityName = this.setWeatherByCityName.bind(this);
     this.setWeatherWithUnits = this.setWeatherWithUnits.bind(this);
     this.getTemperatureUnits = this.getTemperatureUnits.bind(this);
+    this.setAsVisited = this.setAsVisited.bind(this);
   }
 
   async fetchWeatherData(params) {
@@ -63,8 +67,19 @@ class App extends Component {
   async setWeatherByCurrentLocation() {
     const pos = await this.currentLocation();
     await this.setStateAsync((state) => {
+      delete state.params.q;
       state.params.lat = pos.coords?.latitude || 0;
       state.params.lon = pos.coords?.longitude || 0;
+      return state;
+    });
+    this.setWeatherData();
+  }
+
+  async setWeatherByCityName(name) {
+    await this.setStateAsync((state) => {
+      delete state.params.lat;
+      delete state.params.lon;
+      state.params.q = name;
       return state;
     });
     this.setWeatherData();
@@ -88,6 +103,10 @@ class App extends Component {
     });
   }
 
+  setAsVisited() {
+    this.setState((state) => ({ ...state, firstVisit: false }));
+  }
+
   parseWeatherData(obj) {
     return mapObject(obj, (k, v) => {
       if (
@@ -103,21 +122,22 @@ class App extends Component {
     return (
       <div className={`app app_theme_${this.state.weather?.weather._attributes.value.replace(' ', '-')}`}>
         <div className="container">
-          <nav className="main-nav app__nav">
-            <div className="main-nav__title-block">
-              <h2 className="h2 main-nav__title">{this.state.weather?.city._attributes.name}</h2>
-              <TemperatureFormatter setUnits={this.setWeatherWithUnits} getUnits={this.getTemperatureUnits} />
-            </div>
-            <div className="location-selector main-nav__location-selector secondary">
-              <button className="btn location-selector__selector">Сменить город</button>
-              <div className="location-selector__current">
-                <img className="location-selector__icon" src={require('icons/other/location.svg').default} alt="location" />
-                <button
-                  className="btn location-selector__location"
-                  onClick={this.setWeatherByCurrentLocation}>Моё местоположение</button>
-              </div>
-            </div>
-          </nav>
+          <div className="app__nav-container">
+            {
+              this.state.firstVisit
+                ? <Closable
+                  className="app__current-location"
+                  message={this.state.weather?.city._attributes.name}
+                  callback={this.setAsVisited}
+                />
+                : <Nav
+                  cityName={this.state.weather?.city._attributes.name}
+                  setUnits={this.setWeatherWithUnits}
+                  getUnits={this.getTemperatureUnits}
+                  current={this.setWeatherByCurrentLocation}
+                  setCity={this.setWeatherByCityName} />
+            }
+          </div>
           <div className="weather-display app__weather-display">
             <div className="weather-display__title">
               <WeatherIcon value={this.state.weather?.weather._attributes.value} />

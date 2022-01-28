@@ -1,17 +1,18 @@
 @use "/src/styles/variables";
 @use "/src/styles/functions";
 
-.temperature-formatter {
+.metric-selector {
   $border-r: 0.5em;
   $border-w: 2px;
   $border-item: calc(#{$border-r} - #{$border-w});
 
   border-radius: $border-r;
-  border: $border-w solid map-get($map: variables.$pallete, $key: "light60");
+  // border: $border-w solid map-get($map: variables.$pallete, $key: "light60");
   display: flex;
 
   &__item {
     padding: 0.25em 0.875em;
+    border-radius: 0;
     flex: 1 1 auto;
   }
   &__item:first-child {

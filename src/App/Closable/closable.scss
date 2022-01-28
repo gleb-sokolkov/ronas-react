@@ -1,0 +1,28 @@
+@use "/src/styles/variables";
+@use "/src/styles/functions";
+
+.closable {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  font-size: functions.interpolate(15, 30);
+  background: map-get($map: variables.$pallete, $key: 'light');
+  color: map-get($map: variables.$pallete, $key: 'dark');
+  padding: functions.interpolate(18, 32);
+  border-radius: 0.5rem;
+  box-shadow: map-get($map: variables.$shadows, $key: 'md');
+
+  &__message {
+
+  }
+
+  &__btn {
+
+  }
+
+  @media (min-width: map-get($map: variables.$sizes, $key: "mobile")) {
+    max-width: fit-content;
+  }
+}

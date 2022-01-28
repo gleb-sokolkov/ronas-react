@@ -1,18 +1,18 @@
-import './temperatureFormatter.scss'
+import './metricSelector.scss'
 import { Component } from 'react';
 import { config } from 'config';
 
-class TemperatureFormatter extends Component {
+class MetricSelector extends Component {
   render() {
     return (
-      <div className="temperature-formatter main-nav__temperature-formatter secondary">
+      <div className={`metric-selector ${this.props.className}`}>
         { 
           config.units.map((value, i) => (
             <button 
               key={i}
-              className={`btn temperature-formatter__item ${
+              className={`btn metric-selector__item ${
                 this.props.getUnits() === value
-                ? "temperature-formatter__item_selected"
+                ? "metric-selector__item_selected"
                 : ""
               }`} 
               onClick={() => {
@@ -27,4 +27,4 @@ class TemperatureFormatter extends Component {
   }
 }
 
-export { TemperatureFormatter };
+export { MetricSelector };

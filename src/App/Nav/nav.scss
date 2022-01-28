@@ -1,0 +1,114 @@
+@use "/src/styles/variables";
+@use "/src/styles/functions";
+
+.nav {
+  &__title-block {
+    display: flex;
+    flex-flow: row wrap-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &__title-block:not(:last-child) {
+    margin-bottom: functions.interpolate(18, 9);
+  }
+
+  &__title {
+    font-weight: 400;
+  }
+
+  &__metric-selector {
+    position: relative;
+
+    @media(min-width: 0px) {
+      flex: 1 1 auto;
+    }
+    @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
+      flex: 0 0 auto;
+    }
+  }
+  // &__metric-selector::before {
+  //   content: "°";
+  //   line-height: 1;
+  //   font-weight: 400;
+  //   position: absolute;
+  //   transform: translate(calc(-0.8rem - 100%), calc(50% - 0.2rem));
+
+  //   @media(min-width: 0px) {
+  //     display: none;
+  //   }
+  //   @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
+  //     display: block;
+  //   }
+  // }
+
+  &__search-form {
+
+  }
+  &__search-form_hidden {
+    visibility: hidden;
+  }
+  &__search-form_visible {
+    visibility: visible;
+  }
+
+  &__search-input {
+
+  }
+
+  &__location-selector {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.location-selector {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  line-height: 1;
+  gap: 0.5rem 1rem;
+
+  &__current {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.6875rem;
+  }
+
+  &__location {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__icon {
+  }
+
+  &__label {
+  }
+}
+
+.form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+
+  &__input {
+    flex: 1 1 auto;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__submit {
+
+  }
+}

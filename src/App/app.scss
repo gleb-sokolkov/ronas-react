@@ -22,14 +22,14 @@
     background: map-get($map: variables.$pallete, $key: "thunderstorm");
   }
 
-  &__nav {
-    margin-bottom: functions.interpolate(150, 190);
+  &__nav-container {
+    margin-bottom: functions.interpolate(50, 100);
   }
-  
+
   &__weather-display {
     margin-bottom: functions.interpolate(140, 218);
   }
-  
+
   &__weather-details {
   }
 }
@@ -40,86 +40,60 @@
   padding: functions.interpolate(25, 99);
 }
 
-.main-nav {
-  &__title-block {
-    display: flex;
-    flex-flow: row wrap-reverse;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1.5rem;
-  }
-
-  &__title-block:not(:last-child) {
-    margin-bottom: functions.interpolate(18, 9);
-  }
-
-  &__title {
-    font-weight: 400;
-  }
-
-  &__temperature-formatter {
-    position: relative;
-
-    @media(min-width: 0px) {
-      flex: 1 1 auto;
-    }
-    @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
-      flex: 0 0 auto;
-    }
-  }
-  &__temperature-formatter::before {
-    content: "°";
-    line-height: 1;
-    font-weight: 400;
-    position: absolute;
-    transform: translate(calc(-0.8rem - 100%), calc(50% - 0.2rem));
-
-    @media(min-width: 0px) {
-      display: none;
-    }
-    @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
-      display: block;
-    }
-  }
-
-  &__location-selector {
-  }
-}
-
-.location-selector {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  line-height: 1;
-  gap: 0.5rem 2rem;
-
-  &__current {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.6875rem;
-  }
-
-  &__location {
-  }
-
-  &__icon {
-  }
-}
-
 .btn {
+  --color: #{map-get($map: variables.$pallete, $key: "light60")};
+  --color-active: #{map-get($map: variables.$pallete, $key: "light")};
+  --color-disabled: #{map-get($map: variables.$pallete, $key: "light20")};
+  --bg: #{map-get($map: variables.$pallete, $key: "light10")};
   border-radius: 0.2em;
   padding: 0.3em 0.5em;
   transition: 0.2s ease;
-  
-  &:hover, &:focus {
-    background: map-get($map: variables.$pallete, $key: "light10");
+  color: var(--color);
+
+  // &_theme_danger {
+  //   --color: hsl(0, 94%, 77%);
+  //   --color-active: hsl(0, 94%, 87%);
+  //   --color-disabled: hsla(0, 94%, 77%, 0.2);
+  //   --bg: hsla(0, 94%, 77%, 0.1);
+  // }
+
+  &_theme_blue {
+    --color: #{map-get($map: variables.$pallete, $key: "blue")};
+    --color-disabled: #{map-get($map: variables.$pallete, $key: "blue20")};
+    --color-active: #{map-get($map: variables.$pallete, $key: "blue")};
+    --bg: #{map-get($map: variables.$pallete, $key: "blue20")};
   }
-  
-  &:active {
-    color: map-get($map: variables.$pallete, $key: "light");
+
+  &:disabled {
+    color: var(--color-disabled);
+  }
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    background: var(--bg);
+  }
+
+  &:active:not(:disabled) {
+    color: var(--color-active);
+  }
+}
+
+.input {
+  $bg: map-get($map: variables.$pallete, $key: "light10");
+  background: $bg;
+  border: 2px solid transparent;
+  border-radius: 0.2em;
+  padding: 0.5em;
+  transition: 0.2s ease;
+
+  &::placeholder {
+    color: map-get($map: variables.$pallete, $key: "light60");
+  }
+
+  &:hover:not(:disabled),
+  &:hover:not(:disabled) {
+    background: transparent;
+    border-color: $bg;
   }
 }
 
@@ -133,16 +107,12 @@
   color: map-get($map: variables.$pallete, $key: "light60");
 }
 
-.temperature-formatter {
-}
-
 .weather-display {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  padding: 0 0.5rem;
-  
+
   &__title {
     display: flex;
     flex-flow: row wrap-reverse;
@@ -163,18 +133,20 @@
   &__temp {
     font-size: functions.interpolate(120, 180);
 
-    @media(min-width: 0px) {
+    @media (min-width: 0px) {
       font-weight: 300;
     }
-    @media(min-width: map-get($map: variables.$sizes, $key: 'mobile')) {
+    @media (min-width: map-get($map: variables.$sizes, $key: "mobile")) {
       font-weight: 400;
     }
   }
 
-  &__temp_unit_celsius::after, &__temp_unit_fahrenheit::after, &__temp_unit_kelvin::after {
-    color: map-get($map: variables.$pallete, $key: 'light60');
+  &__temp_unit_celsius::after,
+  &__temp_unit_fahrenheit::after,
+  &__temp_unit_kelvin::after {
+    color: map-get($map: variables.$pallete, $key: "light60");
     font-size: 0.5em;
-  } 
+  }
 
   &__temp_unit_celsius::after {
     content: " °C";
@@ -205,21 +177,21 @@
   &__data {
   }
   &__data_windspeed_m\/s::after {
-    content: ' м/с';
+    content: " м/с";
   }
   &__data_windspeed_mph::after {
-    content: ' миля/ч';
+    content: " миля/ч";
   }
   &__data_pressure_hPa::after {
-    content: ' гПа';
+    content: " гПа";
   }
   &__data_pressure_mmgh::after {
-    content: ' мм рт. ст.';
+    content: " мм рт. ст.";
   }
   &__data_humidity_\%::after {
-    content: '%';
+    content: "%";
   }
   &__data_precipitation_mm::after {
-    content: ' мм';
+    content: " мм";
   }
 }
